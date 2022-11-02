@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Siemens.BLL\Siemens.BLL.csproj" />
+    <ProjectReference Include="..\Siemens.DAL\Siemens.DAL.csproj" />
+    <ProjectReference Include="..\Siemens.Dto\Siemens.Dto.csproj" />
+    <ProjectReference Include="..\Siemens.Mapping\Siemens.Mapping.csproj" />
+    <ProjectReference Include="..\Siemens.Validation\Siemens.Validation.csproj" />
+  </ItemGroup>
+
+</Project>
