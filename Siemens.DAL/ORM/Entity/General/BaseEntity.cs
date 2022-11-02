@@ -8,7 +8,7 @@ namespace Siemens.DAL.ORM.Entity
 {
     public abstract class BaseEntity
     {
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
 
         public DateTime AddDate { get; set; }
 

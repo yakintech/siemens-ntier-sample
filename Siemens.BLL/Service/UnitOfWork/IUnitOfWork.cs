@@ -10,6 +10,8 @@ namespace Siemens.BLL.Service
     public interface IUnitOfWork
     {
         IProductRepository ProductRepository { get; }
+        ISupplierRepository SupplierRepository { get; }
+        ISupplierAddressRepository SupplierAddressRepository { get;  }
 
         void Commit();
     }

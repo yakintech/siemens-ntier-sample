@@ -19,6 +19,8 @@ namespace Siemens.DAL.ORM.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
 
+        public DbSet<SupplierAddress> SupplierAddresses { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

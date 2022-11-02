@@ -9,9 +9,8 @@ using Siemens.Dto.Models;
 
 namespace Siemens.API.Controllers
 {
-    [ApiController]
     [Route("api/product")]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseController
     {
 
         private IUnitOfWork _unitOfWork;
@@ -22,7 +21,6 @@ namespace Siemens.API.Controllers
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
 
         [HttpGet]
         public IActionResult Get()

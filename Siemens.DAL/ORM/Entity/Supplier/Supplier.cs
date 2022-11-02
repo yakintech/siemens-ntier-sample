@@ -18,6 +18,7 @@ namespace Siemens.DAL.ORM.Entity
         public string ContactName { get; set; }
 
         public string ContactTitle { get; set; }
+        public SupplierAddress SupplierAddress { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
     }
