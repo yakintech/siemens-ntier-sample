@@ -12,6 +12,7 @@ namespace Siemens.BLL.Service
         IProductRepository ProductRepository { get; }
         ISupplierRepository SupplierRepository { get; }
         ISupplierAddressRepository SupplierAddressRepository { get;  }
+        IWebUserRepository WebUserRepository { get; }   
 
         void Commit();
     }

@@ -14,6 +14,7 @@ namespace Siemens.BLL.Service
         public IProductRepository ProductRepository { get; private set; }
         public ISupplierRepository SupplierRepository { get; private set; }
         public ISupplierAddressRepository SupplierAddressRepository { get; private set; }
+        public IWebUserRepository WebUserRepository { get; private set; }
 
         private SiemensContext _siemensContext;
         public UnitOfWork(SiemensContext siemensContext)
@@ -23,6 +24,7 @@ namespace Siemens.BLL.Service
             ProductRepository = new ProductRepository(_siemensContext);
             SupplierRepository = new SupplierRepository(_siemensContext);
             SupplierAddressRepository = new SupplierAddressRepository(_siemensContext);
+            WebUserRepository = new WebUserRepository(_siemensContext);
         }
 
         public void Commit()

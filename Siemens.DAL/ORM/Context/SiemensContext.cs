@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Siemens.DAL.ORM.Entity;
+using Siemens.DAL.ORM.Entity.WebUser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace Siemens.DAL.ORM.Context
         public DbSet<Supplier> Suppliers { get; set; }
 
         public DbSet<SupplierAddress> SupplierAddresses { get; set; }
+
+        public DbSet<WebUser> WebUsers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
