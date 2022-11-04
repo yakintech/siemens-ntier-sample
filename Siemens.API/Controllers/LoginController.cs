@@ -28,7 +28,7 @@ namespace Siemens.API.Controllers
             webUser.Password = model.Password;
 
             var siemensTokenHandler = new SiemensTokenHandler();
-            var token = siemensTokenHandler.CreateAccessToken();
+            var token = siemensTokenHandler.CreateAccessToken(model.EMail);
             webUser.RefreshToken = token.RefreshToken;
             webUser.RefreshTokenEndDate = token.ExpirationDate.AddMinutes(5);
             token.RefreshTokenEndDate = webUser.RefreshTokenEndDate;
@@ -65,7 +65,7 @@ namespace Siemens.API.Controllers
             {
                 //token üretip arkadaşa göndereceğim!
                 var siemensTokenHandler = new SiemensTokenHandler();
-                var token = siemensTokenHandler.CreateAccessToken();
+                var token = siemensTokenHandler.CreateAccessToken(webUserLoginRequestDto.EMail);
 
                 var loginUser = _unitOfWork.WebUserRepository.FirstOrDefault(q => q.EMail.ToLower() == webUserLoginRequestDto.EMail && q.Password == webUserLoginRequestDto.Password);
 
@@ -96,7 +96,7 @@ namespace Siemens.API.Controllers
                 if (webUser.RefreshTokenEndDate > DateTime.Now)
                 {
                     var siemensTokenHandler = new SiemensTokenHandler();
-                    var token = siemensTokenHandler.CreateAccessToken();
+                    var token = siemensTokenHandler.CreateAccessToken(webUser.EMail);
 
                     webUser.RefreshToken = token.RefreshToken;
                     webUser.RefreshTokenEndDate = token.ExpirationDate.AddMinutes(5);

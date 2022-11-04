@@ -3,14 +3,20 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
+using System.Security.Claims;
 
 namespace Siemens.API.Models.Auth
 {
     public class SiemensTokenHandler
     {
 
-        public Token CreateAccessToken()
+        public Token CreateAccessToken(string email)
         {
+            var claimsdata = new[]
+          {
+                 new  Claim(ClaimTypes.Email ,email),
+           };
+
             Token token = new Token();
 
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ironmaidenpentagramslipknotironmaidenpentagramslipknot"));
@@ -26,14 +32,15 @@ namespace Siemens.API.Models.Auth
                 issuer: "cagatay@mail.com",
                 audience: "cagatay1@mail.com",
                 expires: token.ExpirationDate,
-                signingCredentials: signingCredentials
+                signingCredentials: signingCredentials,
+                claims: claimsdata
                 );
 
 
-           //Token create ediyorum
-           JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-           token.AccessToken = jwtSecurityTokenHandler.WriteToken(jwtSecurityToken);
-           token.RefreshToken = CreateRefreshToken();
+            //Token create ediyorum
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            token.AccessToken = jwtSecurityTokenHandler.WriteToken(jwtSecurityToken);
+            token.RefreshToken = CreateRefreshToken();
 
 
             return token;

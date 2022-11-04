@@ -3,3 +3,9 @@ IActionResult sarmallama
 Fluent validation sýrasýnda default mesajýn iptal edilmesi*
 automapper container
 
+
+
+Filters
+https://learn.microsoft.com/tr-tr/aspnet/core/mvc/controllers/filters?view=aspnetcore-6.0
+
+

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Siemens.API.Models.Filters;
 using Siemens.BLL.Service;
 using Siemens.DAL.ORM.Entity;
 using Siemens.Dto.Models.Response;
@@ -9,7 +10,7 @@ using Siemens.Dto.Models.Supplier.Request;
 namespace Siemens.API.Controllers
 {
 
-    [Authorize]
+
     [Route("api/supplier")]
     public class SupplierController : BaseController
     {
@@ -20,7 +21,7 @@ namespace Siemens.API.Controllers
             _unitOfWork = unitOfWork;
         }
 
-
+        [RoleFilter(1)]
         public IActionResult Get()
         {
             var suppliers = _unitOfWork.SupplierRepository.GetAllWithQueryable()
