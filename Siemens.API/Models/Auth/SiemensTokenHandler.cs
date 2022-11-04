@@ -40,7 +40,7 @@ namespace Siemens.API.Models.Auth
         }
 
 
-        public string CreateRefreshToken()
+        private string CreateRefreshToken()
         {
             byte[] number = new byte[32];
             using (RandomNumberGenerator random = RandomNumberGenerator.Create())

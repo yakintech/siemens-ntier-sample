@@ -16,5 +16,15 @@ namespace Siemens.BLL.Service.Repositories.Entity
 
         }
 
+        public override WebUser Add(WebUser entity)
+        {
+            var webUserControl = context.WebUsers.Any(q => q.EMail == entity.EMail);
+            if (webUserControl)
+                return null;
+            else
+                return base.Add(entity);
+
+        }
+
     }
 }

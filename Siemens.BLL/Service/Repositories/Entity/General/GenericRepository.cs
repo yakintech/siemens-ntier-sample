@@ -21,7 +21,7 @@ namespace Siemens.BLL.Service.Repositories
             this.dbSet = context.Set<TEntity>();
         }
 
-        public TEntity Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             entity.AddDate = DateTime.Now;
             entity.UpdateDate = DateTime.Now;

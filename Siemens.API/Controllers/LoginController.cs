@@ -4,6 +4,7 @@ using Siemens.API.Models.Auth;
 using Siemens.BLL.Service;
 using Siemens.DAL.ORM.Entity.WebUser;
 using Siemens.Dto.Models.WebUser.Request;
+using Siemens.Dto.Models.WebUser.Response;
 
 namespace Siemens.API.Controllers
 {
@@ -14,6 +15,44 @@ namespace Siemens.API.Controllers
         public LoginController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+
+        [HttpPost]
+        [Route("register")]
+        public IActionResult Register(WebUserRegisterRequestDto model)
+        {
+
+            WebUser webUser = new WebUser();
+            webUser.EMail = model.EMail;
+            webUser.Password = model.Password;
+
+            var siemensTokenHandler = new SiemensTokenHandler();
+            var token = siemensTokenHandler.CreateAccessToken();
+            webUser.RefreshToken = token.RefreshToken;
+            webUser.RefreshTokenEndDate = token.ExpirationDate.AddMinutes(5);
+            token.RefreshTokenEndDate = webUser.RefreshTokenEndDate;
+
+
+            var newWebUser = _unitOfWork.WebUserRepository.Add(webUser);
+
+            if(newWebUser == null)
+            {
+                return StatusCode(422, "Böyle bir kullanıcı mevcut!");
+            }
+
+
+            _unitOfWork.Commit();
+
+            WebUserRegisterResponseDto webUserRegisterResponseDto = new WebUserRegisterResponseDto();
+            webUserRegisterResponseDto.EMail = model.EMail;
+            webUserRegisterResponseDto.Id = webUser.Id;
+            webUserRegisterResponseDto.AddDate = webUser.AddDate;
+            webUserRegisterResponseDto.Token = token;
+
+            return Ok(webUserRegisterResponseDto);
+
+
         }
 
 
