@@ -16,6 +16,8 @@ namespace Siemens.BLL.Service.Repositories
 
         TEntity GetById(Guid id);
 
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> filter);
+
         List<TEntity> GetAll();
 
         IQueryable<TEntity> GetAllWithQueryable();

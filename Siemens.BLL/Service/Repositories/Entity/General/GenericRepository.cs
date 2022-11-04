@@ -39,6 +39,12 @@ namespace Siemens.BLL.Service.Repositories
             return status;
         }
 
+        public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> filter)
+        {
+            var result = dbSet.Where(q => q.IsDeleted == false).FirstOrDefault(filter);
+            return result;
+        }
+
         public virtual List<TEntity> GetAll()
         {
             var result = dbSet.Where(q => q.IsDeleted == false).OrderByDescending(x => x.AddDate).ToList();

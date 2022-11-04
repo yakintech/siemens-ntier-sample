@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Siemens.BLL.Service;
 using Siemens.DAL.ORM.Entity;
@@ -8,6 +9,7 @@ using Siemens.Dto.Models.Supplier.Request;
 namespace Siemens.API.Controllers
 {
 
+    [Authorize]
     [Route("api/supplier")]
     public class SupplierController : BaseController
     {
