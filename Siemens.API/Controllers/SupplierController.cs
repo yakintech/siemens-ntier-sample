@@ -21,6 +21,7 @@ namespace Siemens.API.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [HttpGet]
         [RoleFilter(1)]
         public IActionResult Get()
         {

@@ -7,6 +7,7 @@ namespace Siemens.API.Controllers
     [Route("api/category")]
     public class CategoryController : ControllerBase
     {
+        [HttpGet]
         [SampleActionFilter]
         public IActionResult Get()
         {

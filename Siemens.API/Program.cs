@@ -2,6 +2,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Siemens.API.Models.Filters;
 using Siemens.BLL.Service;
 using Siemens.DAL.ORM.Context;
 using Siemens.Dto.Models;
@@ -11,7 +13,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ExceptionFilter)))
     .AddFluentValidation();
 
 
@@ -30,6 +32,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Siemens API Document",
+        Description = "lorem ipsum",
+        TermsOfService = new Uri("https://siemens.com.tr"),
+        Contact = new OpenApiContact
+        {
+            Name = "Siemens Concact",
+            Url = new Uri("https://siemens.com.tr")
+        }
+    });
+});
+
 builder.Services.AddAutoMapper(typeof(CreateRequestProductProfile));
 
 builder.Services
@@ -45,5 +64,8 @@ app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();

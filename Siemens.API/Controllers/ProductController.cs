@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Siemens.API.Models.Filters;
 using Siemens.BLL.Service;
 using Siemens.BLL.Service.Repositories;
 using Siemens.DAL.ORM.Context;
@@ -23,6 +24,7 @@ namespace Siemens.API.Controllers
         }
 
         [HttpGet]
+        [ResponseHeaderFilter("x","10")]
         public IActionResult Get()
         {
 
