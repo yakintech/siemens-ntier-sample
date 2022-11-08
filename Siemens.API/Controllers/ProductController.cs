@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Siemens.API.Models.Filters;
 using Siemens.BLL.Service;
 using Siemens.BLL.Service.Repositories;
@@ -16,11 +17,13 @@ namespace Siemens.API.Controllers
 
         private IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private IMemoryCache _memortyCache;
 
-        public ProductController(IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductController(IUnitOfWork unitOfWork, IMapper mapper, IMemoryCache memoryCache)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _memortyCache = memoryCache;
         }
 
         [HttpGet]
@@ -28,7 +31,12 @@ namespace Siemens.API.Controllers
         public IActionResult Get()
         {
 
+            string key = "productList";
 
+            if (_memortyCache.TryGetValue(key, out object list))
+            {
+                return Ok(list);
+            }
 
             var products = _unitOfWork.ProductRepository.GetAllWithQueryable().Include(q => q.Category).Select(x => new ProductListResponseDto()
             {
@@ -43,6 +51,12 @@ namespace Siemens.API.Controllers
                 }
 
             }).ToList();
+
+            _memortyCache.Set(key, products, new MemoryCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTime.Now.AddMinutes(2),
+                Priority = CacheItemPriority.Normal,
+            });
 
 
 
@@ -69,7 +83,7 @@ namespace Siemens.API.Controllers
             }
             else
             {
-                return NotFound();
+                throw new DataNotFoundException(id.ToString());
             }
         }
 

@@ -50,6 +50,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(CreateRequestProductProfile));
+builder.Services.AddMemoryCache();
 
 builder.Services
     .AddScoped<IValidator<CreateProductRequestDto>, CreateProductRequestValidator>();
